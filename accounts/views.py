@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .serializers import RegisterSerializer, LoginSerializer
+from .tasks import send_signup_mail
 
 
 # Registration View 
@@ -15,6 +16,7 @@ class UserRegistrationView(APIView):
 
         if serializer.is_valid(raise_exception=True):
             user = serializer.save()
+            send_signup_mail.delay(user.email) # trigger celery send mail function 
 
             return Response({
                 "message": f"Account created for {user.email} successfully",
