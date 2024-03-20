@@ -22,11 +22,17 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     # validate email 
     def validate_email(self, value):
-        # perform custome validation on email field 
+        # perform custom validation on email field 
+        chk_email = User.objects.filter(email__iexact=value)
+
         if value is None:
             raise serializers.ValidationError("Email is required")
+        
         if len(value) < 8 or len(value) > 60:
             raise serializers.ValidationError("Email must be between 8 to 60 characters only")
+        
+        if chk_email.count():
+            raise serializers.ValidationError(f"Email {value} already exists")
         
         return value 
     
