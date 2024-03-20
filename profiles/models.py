@@ -6,7 +6,7 @@ from listing.models import JobListing
 User = get_user_model()
 
 
-# User Profile Model 
+# User Profile Model  
 class UserProfile(models.Model):
     full_name = models.CharField(max_length=40, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
