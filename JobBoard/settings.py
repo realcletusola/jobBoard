@@ -76,10 +76,30 @@ WSGI_APPLICATION = 'JobBoard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'drf_redis',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',  # Or your PostgreSQL server's IP address
+        'PORT': '5432',       # Default PostgreSQL port
     }
 }
+
+
+# caching settings 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",  # Redis server address
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+# celery broker url 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
 
 
 # Password validation
