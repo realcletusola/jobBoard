@@ -1,5 +1,5 @@
 from django.db import models
-
+ 
 
 # Job Listing Model
 class JobListing(models.Model):
