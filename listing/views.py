@@ -15,7 +15,6 @@ from accounts.tasks import send_application_mail, send_application_confirmation_
 User = get_user_model()
 
 
-
 # Job List View
 class JobListView(RedisCacheMixin, ListAPIView):
     queryset = JobListing.objects.all()
